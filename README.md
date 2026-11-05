@@ -1,18 +1,49 @@
 # PYNN
 
-Research into deterministic neural-guided, independently verified compiler
+Experimental research into agent-designed neural networks for compiler
 optimization, with [MOLT](https://github.com/adpena/molt) as the intended first
 integration target.
 
-The working idea is to use small neural networks to propose or rank compiler
-transformations, check equivalence independently, and feed counterexamples and
-measured costs into subsequent experiments. Deterministic execution,
-reproducibility, and comparisons against conventional search are core goals.
+The vision is a Python-to-optimized-IR pipeline in which small networks guide
+search or propose equivalent compiler transformations. An agent could design the
+network and directly author its weights, use conventional training, or combine
+both approaches. Independent verification and measured results would determine
+which candidates are accepted.
 
-This is an initial repository scaffold. No optimizer, neural model, verifier,
-benchmark harness, or MOLT adapter is implemented yet. PYNN is a standalone
-research project; future integration should pin a MOLT revision and version the
-IR boundary.
+**Status:** initial research scaffold. No compiler pipeline, neural model,
+verifier, proofs, search harness, benchmarks, or MOLT adapter is implemented yet.
+
+## Proposed research loop
+
+1. Define a bounded Python/typed-IR fragment and its exact semantics, including
+   relevant arithmetic, exceptions, and effects.
+2. Use a deterministic network to rank transformations or propose rewritten IR.
+3. Check equivalence independently. Lean 4 and solver-based approaches such as
+   SMT are under evaluation; inconclusive candidates would be rejected or fall
+   back to the baseline.
+4. Fuzz and differential-test the surrounding pipeline, minimize failures, and
+   benchmark accepted candidates against MOLT and equal-budget conventional
+   search. Measure compile-time cost as well as output quality.
+5. Feed counterexamples and measurements back to the agent for recursive
+   refinement, keeping specifications, verification criteria, and held-out
+   evaluations fixed for each experiment.
+
+## Research principles
+
+- **Determinism and correctness are separate.** Fixed inputs, weights, numeric
+  semantics, inference, and tie-breaking can make a network deterministic.
+  Equivalence checks must separately establish whether a proposed rewrite
+  preserves the specified behavior.
+- **Reproducibility is part of the design.** Pin toolchains, target features,
+  dependencies, seeds, search budgets, and ordering; record experiment inputs
+  and compare repeated runs.
+- **Optimality needs a defined scope.** A future result might establish that no
+  cheaper candidate exists within a bounded search space under an explicit cost
+  model. That would not establish global optimality for arbitrary Python
+  programs. Speed, size, and instruction count are distinct objectives.
+- **Integration follows evidence.** Keep research standalone, then test a narrow
+  MOLT adapter against a pinned revision and versioned IR boundary. Merge useful
+  components only after correctness and performance are demonstrated.
 
 ## Repository conventions
 
