@@ -1,0 +1,104 @@
+# Rust build products; retain Cargo.lock and toolchain/configuration files.
+target/
+**/*.rs.bk
+
+# Python environments, bytecode, packaging, and tool caches.
+.venv/
+venv/
+env/
+.conda/
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.tox/
+.nox/
+.uv_cache/
+.cache/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Local model downloads, checkpoints, and experiment tracker state.
+/checkpoints/
+/models/downloads/
+/models/cache/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.gguf
+wandb/
+mlruns/
+lightning_logs/
+.hf/
+.huggingface/
+
+# Bulk datasets and generated outputs live here; keep definitions elsewhere.
+/datasets/raw/
+/datasets/processed/
+/datasets/cache/
+/data/raw/
+/data/processed/
+/data/cache/
+/runs/
+/outputs/
+/benchmark-results/
+/benchmarks/results/
+/artifacts/generated/
+*.profraw
+*.profdata
+*.log
+
+# Small, intentional model fixtures are permitted. Keep them reviewed and small.
+!/fixtures/**/*.ckpt
+!/fixtures/**/*.pt
+!/fixtures/**/*.pth
+!/fixtures/**/*.safetensors
+!/fixtures/**/*.gguf
+!/tests/fixtures/**/*.ckpt
+!/tests/fixtures/**/*.pt
+!/tests/fixtures/**/*.pth
+!/tests/fixtures/**/*.safetensors
+!/tests/fixtures/**/*.gguf
+
+# Secrets and machine-local settings. Sanitized environment templates are safe.
+.env
+.env.*
+!.env.example
+!.env.*.example
+.envrc.local
+*.pem
+*.key
+*.p12
+*.pfx
+/secrets/
+/credentials/
+.aws/
+
+# Operating system and editor clutter; shared editor configuration stays usable.
+.DS_Store
+._*
+.Spotlight-V100/
+.Trashes/
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/*.local.json
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# Deliberately track manifests, dependency lockfiles, IR specifications,
+# experiment configurations, dataset/checkpoint manifests and checksums,
+# small fixtures, minimized counterexamples, and curated benchmark reports.
